@@ -21,18 +21,14 @@ app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({ limit: "15mb", extended: true }));
 app.use(bodyparser.json({ limit: "15mb" }));
 
-//init all web routes
-/*
-app.use("/api", require("./src/routes/usuariosroutes"));
-app.use("/api", require("./src/routes/denunciasroutes"));
-*/
-
 app.use("/api", require("./src/routes/prueba"));
 
 //Start Server
 server.listen(app.get("port"), () => {
-  console.log("Streaming Service on port ", app.get("port"));
+  console.log("StreamingBI Service on port ", app.get("port"));
 });
 
 // DB Config MONGODB
 dbConnection();
+
+

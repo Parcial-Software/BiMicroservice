@@ -39,6 +39,7 @@ async function processMessages(messages, receiver) {
             id_song: messageBody['Data']['Id'],
             id_album: messageBody['Data']['AlbumId'],
             id_gender: messageBody['Data']['GenderId'],
+            name: messageBody['Data']['Name'],
             reproductions: messageBody['Data']['Reproductions'],
           });
           newSong.save();
@@ -90,11 +91,20 @@ async function processMessages(messages, receiver) {
         default:
           // Caso por defecto
           console.log("Valor no reconocido");
-
       }
 
+    } else {
+      if (messageBody['Action'] == 2 && messageBody['Table'] == 'Songs') {
+        Song.updateOne({ id_song: messageBody['Data']['Id'] }, { reproductions: messageBody['Data']['Reproductions'] })
+          .then(() => {
+            console.log('Song actualizada correctamente');
+          })
+          .catch((error) => {
+            console.error('Error al actualizar la Song:', error);
+          });
+      }
     }
-    
+
     // Confirma el mensaje para que se elimine de la cola
     await receiver.completeMessage(message);
   }

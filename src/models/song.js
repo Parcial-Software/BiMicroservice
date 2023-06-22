@@ -5,6 +5,7 @@ const SongSchema = Schema(
         id_song: String,
         id_album: String,
         id_gender: String,
+        name: String,
         reproductions: Number,
     }, { timestamps: true }
 
